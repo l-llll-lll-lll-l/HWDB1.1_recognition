@@ -1,0 +1,4 @@
+# Ignore test and train directories
+test/
+train/
+*/__pycache__/
