@@ -105,7 +105,7 @@ def save_tfrecords(data, label, desfile):
 def _parse_function(example_proto):
     features = {
         "data": tf.io.FixedLenFeature([], tf.string),
-        "label": tf.io.FixedLenFeature([3755], tf.float32)  # 假设标签为one-hot编码
+        "label": tf.io.FixedLenFeature([3755], tf.float32)  # 标签为one-hot编码
     }
     parsed_features = tf.io.parse_single_example(example_proto, features)
     data = tf.io.decode_raw(parsed_features['data'], tf.float32)
@@ -114,11 +114,7 @@ def _parse_function(example_proto):
 
 
 def load_tfrecords(srcfile):
-    dataset = tf.data.TFRecordDataset(srcfile)  # Load tfrecord file
-    dataset = dataset.map(_parse_function)  # Parse data into tensor
+    dataset = tf.data.TFRecordDataset(srcfile)  
+    dataset = dataset.map(_parse_function)  
     return dataset
-
-    # for data, label in dataset:
-    #     print(data.numpy())
-    #     print(label.numpy())
     

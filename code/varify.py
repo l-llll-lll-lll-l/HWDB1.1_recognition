@@ -10,7 +10,6 @@ argparser.add_argument("--model", help="The name of the model weights file to ve
 # 从src中获得同名文件完整路径
 WEIGHTS_PATH = os.path.join("src", argparser.parse_args().model)
 
-# 设置随机种子以保证可重复性
 random.seed(888)
 np.random.seed(888)
 tf.random.set_seed(888)
@@ -23,21 +22,16 @@ with codecs.open(LABELS_PATH, "r", "UTF-8") as label_file:
 model = model_8(IMG_SIZE, len(klasses))
 model.load_weights(WEIGHTS_PATH)
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-
 test_dataset = load_tfrecords('test.tfrecords') 
 test_dataset = test_dataset.batch(64).prefetch(buffer_size=tf.data.AUTOTUNE)
 
 # 使用test_dataset进行验证
 results = model.evaluate(test_dataset)
-
-# 打印评估结果
 print(f"Test Loss: {results[0]:.4f}")
 print(f"Test Accuracy: {results[1]:.4%}")
 
 # 保存模型的评估结果
 filename = f"evaluate_results_{argparser.parse_args().model}.txt"
-
-# 存到report文件夹中
 with open(os.path.join("report", filename), "w") as f:
     f.write(f"Test Loss: {results[0]:.4f}\n")
     f.write(f"Test Accuracy: {results[1]:.4%}\n")
