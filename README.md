@@ -29,4 +29,4 @@
 ### 运行结果
   - 本模型基于在HWDB1.0上已训练完成的模型进行迁移学习获得，原模型参见https://github.com/angzhou/anchor
   - 目前在HWDB1.1测试集数据上已经达到96.60%的准确率，但这应该不是这个模型的极限
-  - 详细训练报告参见report/文件夹（注意重新运行report.ipynb需要依靠code里面的the_model和utils支持）
+  - 详细训练报告参见report/（重新运行report.ipynb需要依靠code里面的the_model和utils支持）
