@@ -1,7 +1,7 @@
 ### 运行程序指南
 
 1. **下载数据集**  
-   首先，前往官网下载 `HWDB1.1tst_gnt` 和 `HWDB1.1trn_gnt` 数据集，参考网上教程解压并移动（使用网上的gnt2png脚本），使项目根目录中拥有 `test/` 和 `train/` 两个文件夹。
+   首先，前往官网下载 `HWDB1.1tst_gnt` 和 `HWDB1.1trn_gnt` 数据集，参考网上教程解压成.gnt文件，运行`code/gnt2png.py`（需要先编辑gnt2png脚本，设置数据集路径）得到 `.data/test/` 和 `.data/train/` 两个文件夹，将它们从`data/`移动到项目根目录，最终文件结构如下。
    ```bash
    目录结构：
     ├─code
@@ -27,15 +27,16 @@
   
 
 2. **生成 TFRecords 训练数据文件**  
-   切到项目根目录下，使用 `dataset_gnt_tools.py` 生成 TFRecords 训练数据文件。调用格式如下：
-   
+   首先使用`cd`命令,切到项目根目录下，然后使用 `dataset_gnt_tools.py` 生成 TFRecords 训练数据文件。注意下面给出的设备要求，建议先考虑仅生成部分数据。调用格式如下：
    - 生成全部数据：  
      ```bash
-     python .\code\dataset_gnt_tools.py {test,train} --all
+     python .\code\dataset_gnt_tools.py test --all
+     python .\code\dataset_gnt_tools.py train --all
      ```
-   - 部分生成：  
+   - 部分生成（只拿取每类前num个样本）：  
      ```bash
-     python .\code\dataset_gnt_tools.py {test,train} --num 5
+     python .\code\dataset_gnt_tools.py test --num 2
+     python .\code\dataset_gnt_tools.py train --num 8
      ```
    > 注意：使用全部数据生成数据集需要磁盘有 **60G** 剩余空间，且内存可用空间多于 **50G**。进度条一开始卡在0的时间可能1~10分钟不等，请耐心等待或选择较小的num数先进行实验。
 

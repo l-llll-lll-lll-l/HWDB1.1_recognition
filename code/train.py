@@ -36,5 +36,5 @@ test_dataset = test_dataset.batch(64).prefetch(buffer_size=tf.data.AUTOTUNE)
 history = model.fit(train_dataset, validation_data=test_dataset, epochs=5)
 
 # 保存微调后的模型
-weights_path = '.\\new_model.weights.h5'
+weights_path = 'new_model.weights.h5'
 model.save_weights(weights_path)
